@@ -4,7 +4,8 @@ import MovieDetailsPage from './pages/MovieDetailsPage';
 
 function App() {
   return (
-    <BrowserRouter>
+
+    <BrowserRouter basename="/Task6-Movie">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movie/:id" element={<MovieDetailsPage />} />
