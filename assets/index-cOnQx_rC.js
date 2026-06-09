@@ -245,11 +245,11 @@ Error generating stack: `+o.message+`
   position: sticky;
   top: 0;
   z-index: 100;
-  direction: rtl;
+  direction: rtl; /* Arabisk layout */
   transition: all 0.3s ease;
 
   @media (max-width: 768px) {
-    padding: 20px 15px;
+    padding: 15px 10px; /* Mindre padding på mobilen så det inte blir trångt */
     margin-bottom: 10px;
   }
 `,bg=T.div`
@@ -263,11 +263,15 @@ Error generating stack: `+o.message+`
   user-select: none;
 
   span {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     transition: transform 0.4s ease;
 
     &:hover {
       transform: rotate(15deg) scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      font-size: 1.8rem; /* Mindre emoji på mobilen */
     }
   }
 
@@ -279,13 +283,15 @@ Error generating stack: `+o.message+`
     background-clip: text;
     font-weight: 800;
     letter-spacing: -1px;
+    margin: 0;
 
     @media (max-width: 768px) {
-      font-size: 1.8rem;
+      font-size: 1.6rem; /* Mindre text på mobilen så det inte bryts fult */
     }
   }
 `,ev=T.form`
   max-width: 650px;
+  width: 100%; /* Tar upp full bredd upp till max-width */
   margin: 0 auto;
   position: relative;
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
@@ -295,7 +301,8 @@ Error generating stack: `+o.message+`
   }
 `,tv=T.input`
   width: 100%;
-  padding: 16px 25px 16px 60px;
+  box-sizing: border-box; /* VIKTIGT: Gör att padding inte trycker ut inputen utanför skärmen på mobilen */
+  padding: 16px 25px 16px 65px; /* Fixat: Mycket utrymme till VÄNSTER för knappen */
   font-size: 16px;
   border: 2px solid ${e=>e.$isFocused?"#ff0844":"rgba(255, 255, 255, 0.08)"};
   border-radius: 50px;
@@ -303,7 +310,7 @@ Error generating stack: `+o.message+`
   color: white;
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   font-family: inherit;
-  text-align: right;
+  text-align: right; /* Texten skrivs från höger */
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.35);
@@ -313,16 +320,15 @@ Error generating stack: `+o.message+`
     outline: none;
     background: rgba(255, 255, 255, 0.07);
     box-shadow: 0 0 25px rgba(255, 8, 68, 0.25), inset 0 0 10px rgba(0,0,0,0.5);
-    padding-right: 30px;
   }
 
   @media (max-width: 768px) {
-    padding: 12px 20px 12px 50px;
+    padding: 12px 15px 12px 50px; /* Anpassad padding för mobila skärmar */
     font-size: 14px;
   }
 `,nv=T.button`
   position: absolute;
-  left: 8px;
+  left: 8px; /* Ligger kvar på vänster sida så texten (RTL) flyter ifrån den */
   top: 50%;
   transform: translateY(-50%);
   background: linear-gradient(135deg, #ff0844, #ffb199);
@@ -361,6 +367,7 @@ Error generating stack: `+o.message+`
   align-items: center;
   justify-content: center;
   gap: 10px;
+  flex-wrap: wrap; /* Gör att texten hoppar ner snyggt på små mobilskärmar */
 
   span.query-text {
     color: #ffb199;
